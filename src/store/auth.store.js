@@ -68,6 +68,7 @@ const auth = {
         user: state => state.user,
         isLoggedIn: state => !!state.token,
         group: state => state.user.organization.group,
+        organizationId: state => state.user.organization.group.id,
     }
 };
 

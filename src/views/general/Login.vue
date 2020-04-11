@@ -71,8 +71,14 @@
                                     this.$router.push('/ministry');
                                     break;
                                 case 'BANK':
+                                    this.$router.push('/bank');
+                                    break;
                                 case 'HOSPITAL':
+                                    this.$router.push('/hospital');
+                                    break;
                                 case 'PRODUCER':
+                                    this.$router.push('/producer');
+                                    break;
                                 default:
                                     console.log('Invalid org.');
                             }

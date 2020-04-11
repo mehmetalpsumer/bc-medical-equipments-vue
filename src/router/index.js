@@ -139,11 +139,14 @@ let router = new Router({
         },
       ],
       beforeEnter: (to, from, next) => {
+
         if (store.getters.group !== 'PRODUCER') {
           next('/' + store.getters.group.toLowerCase());
           return;
         }
         next();
+
+
       }
     },
 
