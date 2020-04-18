@@ -5,40 +5,75 @@ const backend = 'http://localhost:7080/api/v1';
 const hospital = {
     namespaced: true,
     state: {
-        status: '',
-        hospitals: [],
+        orderStatus: '',
+        orderDate: null,
+        pastOrders: [],
+        pastOrdersStatus: '',
     },
     mutations: {
-        fetchRequest(state) {
-          state.status = 'loading';
+        orderRequest(state) {
+            state.orderStatus = 'loading';
         },
-        fetchSuccess(state, hospitals) {
-            state.status = 'success';
-            state.hospitals = hospitals;
+        orderSuccess(state) {
+            state.orderStatus = 'success';
+            state.orderDate = new Date();
         },
-        fetchError(state) {
-            state.status = 'error';
-            state.hospitals = [];
+        orderError(state) {
+            state.orderStatus = 'error';
+            state.orderDate = null;
+        },
+        pastOrdersRequest(state) {
+            state.pastOrders = [];
+            state.pastOrdersStatus = 'loading';
+        },
+        pastOrdersSuccess(state, orders) {
+            state.pastOrders = orders;
+            state.pastOrdersStatus = 'success';
+        },
+        pastOrdersError(state) {
+            state.pastOrders = [];
+            state.pastOrdersStatus = 'error';
         },
     },
     actions: {
-        fetchAll({commit}) {
+        createOrder({commit}, {hospitalId, maskAmount, priority}) {
+            const data = {
+              masks: parseInt(maskAmount),
+              urgency: parseInt(priority),
+            };
             return new Promise((resolve, reject) => {
-                commit('fetchRequest');
-                axios({url: backend + '/organizations?group=HOSPITAL', method: 'GET' })
+                commit('orderRequest');
+                axios({url: backend + '/hospital-orders/' + hospitalId, data: data, method: 'POST' })
                     .then(resp => {
-                        commit('fetchSuccess', resp.data);
+                        commit('orderSuccess', maskAmount);
                         resolve(resp);
                     })
                     .catch(err => {
-                        commit('fetchError');
+                        commit('orderError');
                         reject(err);
-                    });
-            });
+                    })
+            })
+        },
+        getPastOrders({commit}, {hospitalId}) {
+            return new Promise((resolve, reject) => {
+                commit('pastOrdersRequest');
+                axios({url: backend + '/hospital-orders/' + hospitalId, method: 'GET' })
+                  .then(resp => {
+                      commit('pastOrdersSuccess', resp.data.orders);
+                      resolve(resp);
+                  })
+                  .catch(err => {
+                      commit('pastOrdersError');
+                      reject(err);
+                  })
+            })
         },
     },
     getters: {
-        hospitals: state => state.hospitals,
+        orderStatus: state => state.orderStatus,
+        orderDate: state => state.orderDate.toLocaleString(),
+        pastOrders: state => state.pastOrders,
+        pastOrdersStatus: state => state.pastOrdersStatus
     }
 };
 
