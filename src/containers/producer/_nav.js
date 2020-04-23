@@ -10,13 +10,13 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Siparişler',
+        name: 'Orders',
         to: '/producer/orders',
         icon: 'cil-bell'
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Ödemeler',
+        name: 'Payments',
         to: '/producer/payments',
         icon: 'cil-pencil'
       },

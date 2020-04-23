@@ -1,20 +1,32 @@
 <template>
-    <CCardBody>
-        <CDataTable
-                :items="payments"
-                :fields="fields"
-                column-filter
-                hover
-                sorter
-                pagination
-        >
-            <template #status="{item}">
-                <td>
-                    <CBadge color="success">Ödeme Alındı</CBadge>
-                </td>
-            </template>
-        </CDataTable>
-    </CCardBody>
+    <CCard>
+        <CCardHeader>
+            Payments
+
+            <div class="card-header-actions">
+                <CLink href="#" class="card-header-action btn-close" v-on:click="this.getProducerPaymentLetters">
+                    <CIcon name="cil-reload"/>
+                </CLink>
+            </div>
+        </CCardHeader>
+        <CCardBody>
+            <CDataTable
+                    :items="paymentLetters"
+                    :fields="fields"
+                    :loading="fetchStatus === 'loading'"
+                    column-filter
+                    hover
+                    sorter
+                    pagination
+            >
+                <template #status="{item}">
+                    <td>
+                        <CBadge color="success">Ödeme Alındı</CBadge>
+                    </td>
+                </template>
+            </CDataTable>
+        </CCardBody>
+    </CCard>
 </template>
 
 <script>
@@ -23,19 +35,30 @@
         data: function() {
             return {
                 fields: [
-                    {key: 'id', label: 'Ödeme No.'},
-                    {key: 'date', label: 'Ödeme Tarih/Saat'},
-                    {key: 'amount', label: 'Ödenen Tutar'},
-                    {key: 'bank', label: 'Banka'},
+                    {key: 'id', label: 'Payment Letter ID'},
+                    {key: 'name', label: 'Bank'},
+                    {key: 'price', label: 'Amount'},
+                    {key: 'date', label: 'Date'},
                     {key: 'status', label: 'Sipariş Durumu'},
                 ],
-                payments: [
-                    {id: 5, date: '2020-03-03 18:54', amount: '₺ 1000.00', bank: 'İş Bankası'},
-                    {id: 3, date: '2020-03-02 18:54', amount: '₺ 500.00', bank: 'Akbank'},
-                    {id: 4, date: '2020-03-01 18:34', amount: '₺ 2000.00', bank: 'Akbank'},
-                    {id: 1, date: '2020-03-01 12:54', amount: '₺ 5000.00', bank: 'Ziraat Bankası'},
-                ]
             }
         },
+        computed: {
+            paymentLetters: function() {
+                return this.$store.getters["paymentLetter/paymentLetters"];
+            },
+            fetchStatus: function() {
+                return this.$store.getters["paymentLetter/fetchStatus"];
+            }
+        },
+        methods: {
+            getProducerPaymentLetters: function () {
+                const producerId = this.$store.getters.user.organization.id;
+                this.$store.dispatch("paymentLetter/getProducerPaymentLetters", producerId);
+            }
+        },
+        mounted() {
+            this.getProducerPaymentLetters();
+        }
     };
 </script>

@@ -2,13 +2,13 @@
   <div>
     <CCard>
       <CCardHeader>
-        Delivery List
+        Payment Letters
       </CCardHeader>
 
       <CCardBody>
         <CDataTable
           :fields="tableFields"
-          :items="deliveries"
+          :items="paymentLetters"
           :loading="fetchStatus === 'loading'"
           sorter
           table-filter
@@ -26,30 +26,28 @@
       return {
         tableFields: [
           { key: 'id', label: 'ID' },
-          { key: 'date', label: 'Date' },
-          { key: 'producer', label: 'Producer' },
-          { key: 'status', label :'Delivery Status' },
+          { key: 'order', label: 'Order ID' },
+          { key: 'price', label: 'Amount' },
+          { key: 'date', label: 'Date/Time' }
         ]
       }
     },
     computed: {
-      deliveries: function() {
-        return this.$store.getters["delivery/deliveries"].map((delivery) => {
-          delivery['producer'] = delivery.producer.name;
-          return delivery;
-        });
+      paymentLetters: function() {
+        return this.$store.getters["paymentLetter/paymentLetters"];
       },
       fetchStatus: function() {
-        return this.$store.getters["delivery/fetchStatus"];
+        return this.$store.getters["paymentLetter/fetchStatus"];
       },
     },
     methods: {
-      getAllDeliveries: function() {
-        this.$store.dispatch("delivery/getAllDeliveries");
-      },
+      getBankPaymentLetters: function() {
+        const bankId = this.$store.getters.user.organization.id;
+        this.$store.dispatch("paymentLetter/getBankPaymentLetters", bankId);
+      }
     },
     mounted() {
-      this.getAllDeliveries();
+      this.getBankPaymentLetters();
     }
   }
 </script>

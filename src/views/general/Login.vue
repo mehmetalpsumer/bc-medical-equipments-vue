@@ -9,16 +9,16 @@
                     <CCard class="p-4">
                         <CCardBody>
                             <CAlert color="danger" v-if="error" closeButton>
-                                Hata! Bilgilerinizi doğru girdiğinizden emin olun.
+                                Something is wrong. Check your credentials.
                             </CAlert>
                             <CAlert color="success" v-if="success" closeButton>
-                                Giriş başarılı {{ user ? user.username : '' }}, yönlendiriliyorsunuz...
+                                Login successful! Redirecting...
                             </CAlert>
                             <CForm @submit="login">
-                                <h1>Giriş Yapın</h1>
-                                <p class="text-muted">Hesabınıza giriş yapın</p>
+                                <h1>Login</h1>
+                                <p class="text-muted">Login to your account</p>
                                 <CInput
-                                        placeholder="Kullanıcı adı"
+                                        placeholder="Username"
                                         autocomplete="username email"
                                         v-model="username"
                                         type="text"
@@ -26,7 +26,7 @@
                                     <template #prepend-content><CIcon name="cil-user"/></template>
                                 </CInput>
                                 <CInput
-                                        placeholder="Şifre"
+                                        placeholder="Password"
                                         type="password"
                                         autocomplete="curent-password"
                                         v-model="password"
@@ -35,7 +35,7 @@
                                 </CInput>
                                 <CRow>
                                     <CCol col="6" class="text-left">
-                                        <CButton type="submit" color="primary" class="px-4">Giriş</CButton>
+                                        <CButton type="submit" color="primary" class="px-4">Login</CButton>
                                     </CCol>
                                     <CCol col="6" class="text-right">
                                         <CButton color="link" class="d-md-none">Kayıt ol!</CButton>

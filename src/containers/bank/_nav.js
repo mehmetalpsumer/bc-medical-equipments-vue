@@ -4,8 +4,8 @@ export default [
     _children: [
       {
         _name: 'CSidebarNavItem',
-        name: 'Makbuz Oluştur',
-        to: '/bank/payment-letters/create',
+        name: 'Dashboard',
+        to: '/bank/dashboard',
         icon: 'cil-envelope-closed',
       },
     ]

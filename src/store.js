@@ -9,6 +9,11 @@ import ministryProducers from './store/ministry-producers.store';
 import ministryStocks from './store/ministry-stocks.store';
 import ministryOrders from './store/ministry-orders.store';
 import hospital from './store/hospital.store';
+import offer from "./store/offer.store";
+import hospitalOrder from "./store/hospital-order.store";
+import payment from "./store/payment.store";
+import paymentLetter from "./store/payment-letter.store";
+import delivery from "./store/delivery.store";
 
 Vue.use(Vuex);
 
@@ -22,5 +27,10 @@ export default new Vuex.Store({
         ministryStocks,
         ministryOrders,
         hospital,
+        offer,
+        hospitalOrder,
+        payment,
+        paymentLetter,
+        delivery
     }
 });

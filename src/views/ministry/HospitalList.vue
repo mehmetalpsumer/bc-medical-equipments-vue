@@ -6,19 +6,18 @@
         <!-- Hospital list -->
         <CCard>
             <CCardHeader>
-                Hastane Listesi ve Maske İhtiyaçları
+                Hospitals
+
+                <div class="card-header-actions">
+                    <CLink href="#" class="card-header-action btn-close" v-on:click="fetchAllHospitals">
+                        <CIcon name="cil-reload"/>
+                    </CLink>
+                </div>
             </CCardHeader>
             <CCardBody>
                 <CAlert color="danger" v-if="error" closeButton>
-                    Beklenmeyen bir hata oluştu!
+                    An error occurred!
                 </CAlert>
-
-                <!--
-                <CButton block="true" color="secondary" @click="fetchAllHospitals">
-                    <CIcon name="cil-reload"/>
-                    <span>Yenile</span>
-                </CButton>
-                -->
 
                 <CDataTable
                         :items="hospitals"
@@ -27,7 +26,6 @@
                         column-filter
                         hover
                         sorter
-                        pagination
                 >
 
                 </CDataTable>
@@ -35,24 +33,27 @@
 
             <!-- Card footer, refresh date -->
             <CCardFooter v-if="success">
-                Son güncellenme tarihi: {{fetchDate}}.
+                Last updated on: {{fetchDate}}.
             </CCardFooter>
         </CCard>
+
+        <HospitalOrderList></HospitalOrderList>
     </div>
 </template>
 
 <script>
     import MinistryStocks from "./MinistryStocks";
+    import HospitalOrderList from "./HospitalOrderList";
 
     export default {
         name: 'HospitalList',
-        components: {MinistryStocks},
+        components: {HospitalOrderList, MinistryStocks},
         data: function() {
             return {
                 fields: [
-                    {key: "id", label: "Hastane No."},
-                    {key: "name", label: "Hastane Adı"},
-                    {key: "total", label: "Maske İhtiyacı"}
+                    {key: "id", label: "Hospital ID"},
+                    {key: "name", label: "Hospital Name"},
+                    {key: "total", label: "Total Requested Masks"}
                 ],
             };
         },

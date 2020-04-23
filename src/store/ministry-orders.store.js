@@ -86,6 +86,24 @@ const ministryOrders = {
                       reject(err);
                   });
             });
+        },
+        getUnpaidOrders({commit}) {
+            const params = {
+                unpaid: true,
+            };
+            return new Promise((resolve, reject) => {
+                commit('fetchRequest');
+                axios.get(backend + '/ministry-orders/', {params})
+                  .then(resp => {
+                      const orders = resp.data.filter(d => d['winner'] != null);
+                      commit('fetchSuccess', orders);
+                      resolve(resp);
+                  })
+                  .catch(err => {
+                      commit('fetchError');
+                      reject(err);
+                  });
+            });
         }
     },
     getters: {

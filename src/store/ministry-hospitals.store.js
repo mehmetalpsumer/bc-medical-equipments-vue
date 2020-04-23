@@ -42,7 +42,9 @@ const ministryHospitals = {
     },
     getters: {
         hospitals: state => state.hospitals.map((hospital) => {
-            hospital.total = hospital.orders.reduce((a, b) => a + (b['masks'] || 0), 0);
+            hospital.total = hospital.orders
+              .filter(a => a.status == 0)
+              .reduce((a, b) => a + (b['amount'] || 0), 0);
             return hospital;
         }),
         status: state => state.status,

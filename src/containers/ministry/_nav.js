@@ -7,26 +7,28 @@ export default [
         name: 'Dashboard',
         to: '/ministry/dashboard',
         icon: 'cil-speedometer',
-        badge: {
-          color: 'primary',
-          text: '!'
-        }
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Hastaneler',
+        name: 'Hospitals',
         to: '/ministry/hospitals',
-        icon: 'cil-hospital'
+        icon: 'cil-building'
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Siparişler',
+        name: 'Payments',
+        to: '/ministry/payments',
+        icon: 'cil-money'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Orders',
         to: '/ministry/orders',
-        icon: 'cil-barcode'
+        icon: 'cil-clipboard'
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Üreticiler',
+        name: 'Producers',
         to: '/ministry/producers',
         icon: 'cil-factory'
       },

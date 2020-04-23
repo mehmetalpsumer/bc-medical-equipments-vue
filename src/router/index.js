@@ -10,12 +10,10 @@ const HospitalContainer = () => import('@/containers/hospital/TheContainer');
 
 // Ministry views
 const MinistryDashboard = () => import('@/views/ministry/Dashboard');
-const MinistryHospitalDetail = () => import('@/views/ministry/HospitalDetail');
 const MinistryHospitalList = () => import('@/views/ministry/HospitalList');
-const MinistryOrderDetail = () => import('@/views/ministry/OrderDetail');
 const MinistryOrderList = () => import('@/views/ministry/OrderList');
-const MinistryProducerDetail = () => import('@/views/ministry/ProducerDetail');
 const MinistryProducerList = () => import('@/views/ministry/ProducerList');
+const MinistryPaymentList = () => import('@/views/ministry/PaymentList');
 
 // Producer views
 const ProducerDashboard = () => import('@/views/producer/ProducerDashboard');
@@ -23,7 +21,7 @@ const ProducerOrderList = () => import('@/views/producer/OrderList');
 const ProducerPaymentList = () => import('@/views/producer/PaymentList');
 
 // Bank views
-const BankCreatePaymentLetter = () => import('@/views/bank/CreatePaymentLetter');
+const BankDashboard = () => import('@/views/bank/BankDashboard');
 
 // Hospital views
 const HospitalDashboard = () => import('@/views/hospital/HospitalDashboard');
@@ -59,7 +57,7 @@ let router = new Router({
     {
       path: '/ministry',
       redirect: '/ministry/dashboard',
-      name: 'T.C. Sağlık Bakanlığı Paneli',
+      name: 'Ministry of Health',
       meta: {
         requiresAuth: true,
         role: 'MINISTRY',
@@ -73,33 +71,23 @@ let router = new Router({
         },
         {
           path: 'hospitals',
-          name: 'Hastane Listesi',
+          name: 'Hospitals',
           component: MinistryHospitalList,
         },
         {
-          path: 'hospitals/:id',
-          name: 'Hastane Detayları',
-          component: MinistryHospitalDetail,
+          path: 'payments',
+          name: 'Payments',
+          component: MinistryPaymentList,
         },
         {
           path: 'orders',
-          name: 'Sipariş Listesi',
+          name: 'Orders',
           component: MinistryOrderList,
         },
         {
-          path: 'orders/:id',
-          name: 'Sipariş Detayları',
-          component: MinistryOrderDetail,
-        },
-        {
           path: 'producers',
-          name: 'Üretici Listesi',
+          name: 'Producers',
           component: MinistryProducerList,
-        },
-        {
-          path: 'producers/:id',
-          name: 'Üretici Detayları',
-          component: MinistryProducerDetail,
         },
       ],
       beforeEnter: (to, from, next) => {
@@ -115,7 +103,7 @@ let router = new Router({
     {
       path: '/producer',
       redirect: '/producer/dashboard',
-      name: 'Üretici Paneli',
+      name: 'Producer',
       meta: {
         requiresAuth: true,
         role: 'PRODUCER',
@@ -129,12 +117,12 @@ let router = new Router({
         },
         {
           path: 'orders',
-          name: 'Siparişler',
+          name: 'Orders',
           component: ProducerOrderList,
         },
         {
           path: 'payments',
-          name: 'Ödemeler',
+          name: 'Payments',
           component: ProducerPaymentList,
         },
       ],
@@ -153,8 +141,8 @@ let router = new Router({
     // Bank routes
     {
       path: '/bank',
-      redirect: '/bank/payment-letters/create',
-      name: 'Banka Paneli',
+      redirect: '/bank/dashboard',
+      name: 'Bank',
       meta: {
         requiresAuth: true,
         role: 'BANK',
@@ -162,9 +150,9 @@ let router = new Router({
       component: BankContainer,
       children: [
         {
-          path: 'payment-letters/create',
-          name: 'Yeni Makbuz Formu',
-          component: BankCreatePaymentLetter,
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: BankDashboard,
         },
       ],
       beforeEnter: (to, from, next) => {
@@ -180,7 +168,7 @@ let router = new Router({
     {
       path: '/hospital',
       redirect: '/hospital/dashboard',
-      name: 'Hastane Paneli',
+      name: 'Hospital',
       meta: {
         requiresAuth: true,
         role: 'HOSPITAL',

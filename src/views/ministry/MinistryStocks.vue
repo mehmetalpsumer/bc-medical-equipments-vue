@@ -1,21 +1,21 @@
 <template>
     <CCard>
         <CCardHeader>
-            T.C. Sağlık Bakanlığı Stokları
+            Health of Ministry Stocks
         </CCardHeader>
         <CCardBody>
             <CRow>
                 <CCol lg="12">
                     <!-- Error -->
                     <CAlert v-if="status === 'error'" color="info" closeButton>
-                        Maske sayıları getirilirken bir hata oluştu.
+                        An error occurred.
                     </CAlert>
 
                     <!-- Data -->
                     <CWidgetIcon
                             v-if="status === 'success'"
-                            :header="maskAmount + ' adet maske'"
-                            text="T.C. SAĞLIK BAKANLIĞI STOĞUNDA"
+                            :header="maskAmount + ' masks'"
+                            text="In Ministry Stocks"
                             color="success"
                     >
                         <CIcon name="cil-settings"/>
@@ -29,7 +29,7 @@
 
         <!-- Footer -->
         <CCardFooter v-if="fetchDate">
-            Son güncelleme tarihi: {{fetchDate}}.
+            Last updated on: {{fetchDate}}.
         </CCardFooter>
     </CCard>
 

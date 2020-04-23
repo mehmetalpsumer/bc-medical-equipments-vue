@@ -6,21 +6,21 @@
         <!-- Producers -->
         <CCard>
             <CCardHeader>
-                Üretici Stokları
+                Producer Stocks
             </CCardHeader>
             <CCardBody>
                 <CAlert color="danger" v-if="status === 'error'" closeButton>
-                    Beklenmeyen bir hata oluştu!
+                    An error occurred!
                 </CAlert>
 
                 <CDataTable
                         :items="producers"
                         :fields="fields"
                         :loading="status === 'loading'"
+                        table-filter
                         column-filter
                         hover
                         sorter
-                        pagination
                 >
 
 
@@ -38,9 +38,9 @@
         data: function() {
             return {
                 fields: [
-                    {key: "id", label: "Üretici No."},
-                    {key: "name", label: "Üretici Adı"},
-                    {key: "masks", label: "Maske Stoğu"},
+                    {key: "id", label: "Producer ID"},
+                    {key: "name", label: "Producer Name"},
+                    {key: "masks", label: "Masks in Stock"},
                 ]
             }
         },
